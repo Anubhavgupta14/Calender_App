@@ -122,7 +122,7 @@ const CalendarView = () => {
     setSelectedEvent(event);
     setNewEvent({
       ...event,
-      date: new Date(event.date).toISOString().split("T")[0], // Convert ISO date to YYYY-MM-DD
+      date: new Date(event.date).toISOString().split("T")[0],
     });
     setIsDialogOpen(true);
   };
@@ -298,15 +298,15 @@ const CalendarView = () => {
               className="bg-gray-700 text-white border-gray-600"
             />
 
-            <div className="grid grid-cols-2 gap-4">
-              <Input
+            <div className=" gap-4">
+              {/* <Input
                 type="date"
                 name="date"
                 value={newEvent.date}
                 onChange={handleInputChange}
                 required
                 className="bg-gray-700 text-white border-gray-600"
-              />
+              /> */}
               <Input
                 type="time"
                 name="time"
