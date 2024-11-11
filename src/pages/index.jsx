@@ -245,7 +245,7 @@ const CalendarView = () => {
                 key={`${weekIndex}-${dayIndex}`}
                 className={`min-h-[120px] bg-gray-800 p-2 border border-white ${
                   day.isCurrentMonth ? "text-white" : "text-gray-500"
-                } hover:bg-gray-700`}
+                } relative group hover:bg-gray-700`}
                 onClick={() => handleDateClick(day.date)}
               >
                 <div className="flex items-center justify-between">
