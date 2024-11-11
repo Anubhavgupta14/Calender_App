@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { User, Lock, Eye, EyeOff } from "lucide-react";
 import { register, login } from "../api/getDataApi";
 import { useRouter } from "next/router";
+import toast, { Toaster } from 'react-hot-toast';
 
 const LoginSignupPage = () => {
   const router = useRouter();
@@ -9,6 +10,7 @@ const LoginSignupPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [userData, setUserData] = useState({});
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -24,7 +26,7 @@ const LoginSignupPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-
+    setIsLoading(true)
     try {
       const res = isLogin
         ? await login({ username: userData.username, password: userData.password })
@@ -35,14 +37,24 @@ const LoginSignupPage = () => {
 
         localStorage.setItem("token", token);
         setCookie("token", res.token, 7);
+        toast.success("Loggedin")
+      }
+      else{
+        toast.success("Registered")
+        setIsLogin(true)
       }
       router.push("/");
     } catch (err) {
       setError(err.message);
     }
+    finally{
+        setIsLoading(false)
+    }
   };
 
   return (
+    <>
+    <Toaster/>
     <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
       <div className="max-w-md w-full bg-gray-800 rounded-lg shadow-lg p-8">
         <h2 className="text-3xl font-bold text-center text-white mb-8">
@@ -110,7 +122,8 @@ const LoginSignupPage = () => {
             type="submit"
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg py-3 transition duration-200"
           >
-            {isLogin ? "Login" : "Sign Up"}
+            
+            {isLoading ? "Loading..." : isLogin ? "Login" : "Sign Up"}
           </button>
         </form>
 
@@ -127,6 +140,7 @@ const LoginSignupPage = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
