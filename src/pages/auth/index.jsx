@@ -33,14 +33,13 @@ const LoginSignupPage = () => {
 
       if (isLogin) {
         const token = res.token;
-
         localStorage.setItem("token", token);
         setCookie("token", res.token, 7);
+        router.push("/");
       }
       else{
         setIsLogin(true)
       }
-      router.push("/");
     } catch (err) {
       setError(err.message);
     }
