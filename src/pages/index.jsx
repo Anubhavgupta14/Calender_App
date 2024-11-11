@@ -11,7 +11,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Logout from "@/components/ui/Logout"
-import toast, { Toaster } from 'react-hot-toast';
 import { createEvent, allEvent, editEvent, deleteEvent } from "./api/getDataApi";
 
 const CalendarView = () => {
@@ -150,12 +149,10 @@ const CalendarView = () => {
               : event
           )
         );
-        toast.success("Event edited successfully")
 
         
       } else {
         await createEvent(newEvent);
-        toast.success("Event created successfully")
         await fetchEvents();
       }
 
@@ -176,7 +173,6 @@ const CalendarView = () => {
         setEvents(events.filter(event => event._id !== selectedEvent._id));
         setIsDialogOpen(false);
         setSelectedEvent(null);
-        toast.success("Event Deleted")
   
         await fetchEvents();
       } catch (error) {
@@ -188,9 +184,7 @@ const CalendarView = () => {
 
   const getEventsForDate = (date) => {
     return events.filter((event) => {
-      // Convert API date to YYYY-MM-DD format
       const eventDate = new Date(event.date).toISOString().split("T")[0];
-      // Convert calendar date to YYYY-MM-DD format
       const calendarDate = formatDate(date);
       return eventDate === calendarDate;
     });
@@ -200,7 +194,6 @@ const CalendarView = () => {
 
   return (
     <>
-    <Toaster/>
     <div className="p-6 bg-gray-900 text-white min-h-screen">
       <div className="mb-6 flex items-center justify-between">
         <div className="flex items-center gap-4">

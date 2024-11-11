@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { User, Lock, Eye, EyeOff } from "lucide-react";
 import { register, login } from "../api/getDataApi";
 import { useRouter } from "next/router";
-import toast, { Toaster } from 'react-hot-toast';
 
 const LoginSignupPage = () => {
   const router = useRouter();
@@ -37,10 +36,8 @@ const LoginSignupPage = () => {
 
         localStorage.setItem("token", token);
         setCookie("token", res.token, 7);
-        toast.success("Loggedin")
       }
       else{
-        toast.success("Registered")
         setIsLogin(true)
       }
       router.push("/");
@@ -54,7 +51,6 @@ const LoginSignupPage = () => {
 
   return (
     <>
-    <Toaster/>
     <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
       <div className="max-w-md w-full bg-gray-800 rounded-lg shadow-lg p-8">
         <h2 className="text-3xl font-bold text-center text-white mb-8">
